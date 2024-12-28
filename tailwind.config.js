@@ -13,6 +13,12 @@ export default {
         'laptop': { min: '769px', max: '1024px' },// 769px до 1024px
         'desktop': { min: '1025px' },     // 4K экраны
       },
+      fontFamily: {
+        poppins: ['Poppins', 'serif'], // Добавляем шрифт Poppins
+      },
+      boxShadow: {
+        'custom': 'rgba(17, 17, 26, 0.1) 0px 1px 0px',
+      },
     },
   },
   plugins: [],
