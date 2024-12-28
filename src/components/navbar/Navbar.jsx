@@ -1,22 +1,42 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from "../../assets/icons/navbar_logo.png"
+import burgerOpen from "../../assets/icons/burger_open.png"
+import burgerClose from "../../assets/icons/burger_close.png"
+import { useNavigate } from 'react-router-dom'
 
 function Navbar() {
+    const navigate = useNavigate();
+    const [burger, setBurger] = useState(false);
+
+    const burgerMenu = () => {
+        setBurger(!burger);
+    }
+
+    const LoginPage = () => {
+        navigate("/login")
+    }
+
   return (
     <nav className='container'>
-        <div className='bg-[#074799] rounded-b-lg desktop:min-h-[10vh] py-[10px] px-[30px] flex items-center justify-between'>
+        <div className='relative bg-[#074799] rounded-b-lg desktop:min-h-[10vh] py-[10px] px-[20px] flex items-center justify-between'>
             <div className='flex items-center'>
-                <img className='desktop:w-[70px]' src={logo} alt="todoList" />
-                <p className='desktop:text-[1.4rem] p-[10px]'>Todo App</p>
+                <img className='w-[65px] phone:w-[50px]' src={logo} alt="todoList" />
+                <p className='text-[1.4rem] phone:text-[1rem]'>Todo App</p>
             </div>
-            <div className='flex gap-[20px] text-[1.3rem] font-sans'>
-                <a className='py-[10px] px-[20px] border border-[#074799] focus:outline-none focus:border focus:border-[red] rounded-lg' href="/">Home</a>
-                <a className='py-[10px] px-[20px] border border-[#074799] focus:outline-none focus:border focus:border-[red] rounded-lg' href="/about">About us</a>
+            <div className='flex items-center gap-[20px] justify-between font-sans'>
+                <div className='text-[1.2rem] tablet:hidden phone:hidden'>
+                    <a className='py-[10px] px-[10px] rounded-lg' href="/">Home</a>
+                    <a className='py-[10px] px-[10px] rounded-lg' href="/about">About us</a>
+                </div>
+                <button className='font-sans py-[7px] rounded-lg px-[20px] text-[1rem] phone:text-[0.8rem] phone:py-[5px] phone:px-[15px] transition-all duration-300 ease-in-out text-black bg-white hover:bg-gray-300 hover:scale-[0.9]' onClick={LoginPage}>Login</button>
+                <button className='desktop:hidden laptop:hidden' onClick={burgerMenu}>
+                    <img className={`w-[30px] transition-transform duration-500 ease-in-out ${burger ? '-rotate-90 scale-90' : 'rotate-0 scale-100'}`} src={burger ? burgerClose : burgerOpen} alt="open close" />
+                </button>
             </div>
-            <div className='flex gap-[20px] font-sans'>
-                <button className='py-[5px] px-[20px] border rounded-lg text-[17px] transition-all duration-300 ease-in-out hover:border-[red] focus:outline-none focus:border-[red] hover:scale-110'>Login</button>
-                <button className='py-[5px] px-[20px] border rounded-lg text-[17px] transition-all duration-300 ease-in-out hover:border-[red] focus:outline-none focus:border-[red] hover:scale-110'>Register</button>
-            </div>
+        </div>
+        <div className={`absolute font-poppins font-bold not-italic bg-[white] rounded-t-lg min-h-[150px] flex flex-col text-center items-center ${burger ? 'top-15 opacity-100' : '-top-full opacity-0'} transition-all duration-500 ease-in-out text-[black] desktop:hidden laptop:hidden w-full`}>
+            <a className='py-[7px] px-[10px] shadow-custom w-full transition-all duration-300 ease-in-out hover:bg-gray-100' href="/">Home</a>
+            <a className='py-[7px] px-[10px] shadow-custom w-full transition-all duration-300 ease-in-out hover:bg-gray-100' href="/about">About us</a>
         </div>
     </nav>
   )
